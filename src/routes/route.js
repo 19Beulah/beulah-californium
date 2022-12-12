@@ -12,6 +12,79 @@ router.get("/profile-details", function(req, res){
     // Write the LOGIC here
     res.send('dummy response')
 })
+router.get("/family",function (req,res){
+   const fm=["devadhanamma","Joshuva","Ruth","Bhushan Kumar","Beulah"];
+   res.send(fm)  
+})
+router.get("/family/:indexNumber",function (req,res){
+ const fm=["devadhanamma","Joshuva","Ruth","Bhushan Kumar","Beulah"];
+ if(req.url=='/family/0'){
+    res.send(fm[0]);
+ }else if (req.url=="/family/1"){
+    res.send(fm[1]);
+}else if(req.url=="/family/2"){
+    res.send(fm[2]);
+}else if(req.url=="/family/3"){
+    res.send(fm[3]);
+}else if(req.url=="/family/4"){
+    res.send(fm[4]);
+}else{
+   res.end("use a valid index") 
+}
+})
+
+router.get("/cartoons",function(req,res){
+    const cn=[ {
+                 "id":1,
+                 "name":"Shin chan"
+              },
+              {
+                 "id":2,
+                 "name":"Doraemon"
+              },
+              {
+                 "id":3,
+                 "name":"Dora bujji"
+              },
+              {
+                 "id":4,
+                 "name":"Super dragon balls"
+              } ];
+    res.send(cn)
+   }) ;
+
+    router.get("/cartoons/:filmId",function(req,res){
+        const cn=[ {
+            "id":1,
+            "name":"Shin chan"
+         },
+         {
+            "id":2,
+            "name":"Doraemon"
+         },
+         {
+            "id":3,
+            "name":"Dora bujji"
+         },
+         {
+            "id":4,
+            "name":"Super dragon balls"
+         }];
+                    
+    if(req.url=="/cartoons/1"){
+        res.send(cn[0]);
+     }else if (req.url=="/cartoons/2"){
+        res.send(cn[1]);
+    }else if(req.url=="/cartoons/3"){
+        res.send(cn[2]);
+    }else if(req.url=="/cartoons/4"){
+        res.send(cn[3]);
+    }else{
+       res.send("No cartoon exists with this id") 
+    }
+})
+
+
 
 router.get('/test-me', function (req, res) {
     console.log("email from introduction module", intro.myEmail)
@@ -51,10 +124,9 @@ router.get('/student-details/:name', function(req, res){
 
     // JSON strigify function helps to print an entire object
     // We can use many ways to print an object in Javascript, JSON stringify is one of them
-    console.log("This is the request "+ JSON.stringify(requestParams))
+    console.log("This is the request"+ JSON.stringify(requestParams))
     let studentName = requestParams.name
     console.log('Name of the student is ', studentName)
-    
     res.send('Dummy response')
 })
 
@@ -75,3 +147,7 @@ router.get("/shoes", function(req, res){
 })
 
 module.exports = router;
+
+
+
+
