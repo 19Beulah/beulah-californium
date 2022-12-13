@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const intro = require('./introduction')
 const employee = require('./employee')
@@ -70,7 +71,7 @@ router.get("/cartoons",function(req,res){
             "id":4,
             "name":"Super dragon balls"
          }];
-                    
+
     if(req.url=="/cartoons/1"){
         res.send(cn[0]);
      }else if (req.url=="/cartoons/2"){
@@ -126,7 +127,7 @@ router.get('/student-details/:name', function(req, res){
     // We can use many ways to print an object in Javascript, JSON stringify is one of them
     console.log("This is the request"+ JSON.stringify(requestParams))
     let studentName = requestParams.name
-    console.log('Name of the student is ', studentName)
+    //res.send('Name of the student is ', studentName)
     res.send('Dummy response')
 })
 
@@ -146,6 +147,48 @@ router.get("/shoes", function(req, res){
     res.send("dummy shoes response")
 })
 
+
+
+// Q1.
+   // -write an api which gives the missing number in an array of integers starting from 1….e.g [1,2,3,5,6,7] : 4 is missing
+ // Your route code will look like this
+
+app.get("/sol1", function (req, res) {
+    //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
+    let arr= [1,2,3,5,6,7]
+    let sum=0;
+    for(let i=0;i<arr.length;i++){
+     sum=sum+arr[i]
+    }
+    let n=arr[arr.length-1];
+    let naturalSum=n*(n+1)/2
+    let missingNumber=naturalSum-sum
+    //console.log( missingNumber) 
+    ///LOGIC WILL GO HERE 
+    res.send(  { data: missingNumber  }  );
+});
+
+
+//Q2. 
+//    -write an api which gives the missing number in an array of integers starting from anywhere….e.g [33, 34, 35, 37, 38]: 36 is missing
+//  Your route code will look like this
+app.get("/sol2", function (req, res) {
+        //logic : sum of n consecutive numbers is [ n * (first + last) / 2  ]..so get sum of all numbers in array. now take sum of n consecutive numbers.. n would be length+1 as 1 number is missing
+        let arr= [33, 34, 35, 37, 38]
+        let sum=0;
+        for(let i=0;i<arr.length;i++){
+         sum=sum+arr[i];
+        }
+        let first=arr[0];
+        let last=arr[arr.length-1];
+         let n= arr.length +1;
+         let naturalnosum=[n*(first+last)/2] ;
+        let missingNumber=naturalnosum-sum;
+
+        ///LOGIC WILL GO HERE 
+
+        res.send(  { data: missingNumber  }  );
+});
 module.exports = router;
 
 
