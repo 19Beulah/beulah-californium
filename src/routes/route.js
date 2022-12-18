@@ -12,7 +12,7 @@ router.post("/createUser", UserController.createUser  )
 
 router.get("/getUsersData", UserController.getUsersData)
 
-router.post("/createBook", BookController.createBook  )
+router.post("/createBooks", BookController.createBook)
 
 router.get("/getBooksData", BookController.getBooksData)
 

@@ -11,10 +11,9 @@ const bookSchema = new mongoose.Schema( {
         europePrice: String,
     },
     sales: {type: Number, default: 10}
-}, { timestamps: true });
+},{ timestamps: true });
 
-
-module.exports = mongoose.model('Book', bookSchema) //users
+module.exports = mongoose.model('Booklist', bookSchema) //users
 
 //Validation:
 //require:true
