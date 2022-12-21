@@ -9,8 +9,7 @@ const customerSchema= new mongoose.Schema( {
   mobileNumber:{
     type:String,
   },
-    DOB:{type: Date,
-      default: Date.now},
+    DOB: Date,
     emailID:{
         type:String,
         default:"abc@xyz.com"
