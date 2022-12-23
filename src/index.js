@@ -20,6 +20,23 @@ app.use (
         next();
   }
   );
+  //Write a middleware that logs (console.log) some data everytime any API is hit
+  //Data to be logged:-the current timestamp(as date time) , the IP of the user and the route being requested
+  const timestamp= function (req,res,next){
+    var currentdate = new Date(); 
+    var datetime =  currentdate.getDate() + " "
+                    + (currentdate.getMonth()+1)  + " " 
+                    + currentdate.getFullYear() + "  "  
+                    + currentdate.getHours() + ":"  
+                    + currentdate.getMinutes() + ":" 
+                    + currentdate.getSeconds();
+
+    let ip= req.ip
+    let url= req.originalUrl
+    console.log(`${datetime}  ${ip} ${url}`)
+    next()    
+  } 
+app.use(timestamp)
 
 app.use('/', route);
 
