@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //connecting nodejs app with mongoDb
-mongoose.connect("mongodb+srv://BeulahPerikala:Pbeulah%408977@beulah.84im9bg.mongodb.net/test", {useNewUrlParser: true}) 
+mongoose.connect("mongodb+srv://bebooks:Pbeulah8977@bbook.gbzwer2.mongodb.net/test", {useNewUrlParser: true}) 
     .then(() => console.log('mongodb running '))
     .catch(err => console.log(err))
 

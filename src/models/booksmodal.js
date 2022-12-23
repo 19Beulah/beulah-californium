@@ -8,4 +8,4 @@ const a  = new mongoose.Schema({
  
  { timestamps: true }
  )    
- module.exports = mongoose.model('books',a)
+ module.exports = mongoose.model('boook',a)
