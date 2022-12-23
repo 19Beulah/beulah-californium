@@ -70,4 +70,24 @@ router.post("/test-post-4", function(req, res) {
     res.send(  { msg: arr , status: true }  )
 })
 
+let players =[];
+    router.post('/players-api', function (req, res) {
+    let newPlayer=req.body;
+    let newPlayersName=newPlayer.name;
+    let nameRepeated= false;
+    for(let i=0;i<players.length;i++){
+      if(players[i].name== newPlayersName){
+        nameRepeated=true;
+        break   
+      }  
+    }
+
+    if(nameRepeated){
+     res.send("this player was already added!")
+   } else{
+     players.push(newPlayer);
+   }
+    res.send({ data: players , status: true })
+})
+
 module.exports = router;
