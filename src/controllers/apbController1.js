@@ -4,7 +4,7 @@ const newAuthor=require("../models/newAuthorModel")
 const { updateMany } = require("../models/newAuthorModel")
 
 //TOPIC: Mongoose Populate and Reference
-// 1. Write a POST api that creates an author from the details in request body
+//1. Write a POST api that creates an author from the details in request body
 const createnewAuthor =async function(req,res){
   let data=req.body  
 let newAuthors=await newAuthor.create(data)
@@ -40,7 +40,7 @@ const createnewBook =async function(req,res){
   const publisherid=await newPublisher.findOne({_id:publisher})
  
   if(!publisherid){
-     return res.send({status:false,msg:"publisherid authorId"})
+     return res.send({status:false,msg:"publisherid not valied"})
   }
     let createBook=await newBookModel.create({name,author,price,ratings,publisher})
     res.send({msg:createBook})
@@ -52,6 +52,8 @@ const createnewBook =async function(req,res){
   let createBook= await newBookModel.find().populate("author").populate("publisher")
       res.send({msg:createBook})          
   }
+  
+//5)
 // a) Add a new boolean attribute in the book schema called isHardCover with a default false value. For the books published by 'Penguin' and 'HarperCollins', update this key to true.
 
 const updatadBook=async function(req,res){
@@ -63,15 +65,15 @@ const update=await newBookModel.updateMany(
 )
 //res.send({msg:update})
 
-// b) For the books written by authors having a rating greater than 3.5, update the books price by 10 (For eg if old price for such a book is 50, new will be 60)
-let createBook= await newBookModel.find().populate("author").populate("publisher")
+//b) For the books written by authors having a rating greater than 3.5, update the books price by 10 (For eg if old price for such a book is 50, new will be 60)
+//let createBook= await newBookModel.find().populate("author").populate("publisher")
 let author=await newAuthor.find({rating:{$gt:3.5}})
 const authorId= author.map(y=>y._id)
 let rating=await newBookModel.updateMany(
   {author:{$in:authorId}},
   {$inc:{price:10}}
 )
-let book=await newBookModel.find()     
+//let book=await newBookModel.find()     
   res.send({msg:rating})
 }
 
