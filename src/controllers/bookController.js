@@ -1,14 +1,13 @@
 const { count } = require("console")
 const BookModels= require("../models/bookModel")
 
+//createBook : to create a new entry..use this api to create 11+ entries in your collection
+
 const createBook= async function (req, res) {
-    //let data= req.body.year
-
-    //let savedData= await BookModels.create(data)
+    let data= req.body
+   let savedData= await BookModels.create(data)
     //let savedData= await BookModels(data)
-
-
-    res.send({msg: getyear})
+   res.send({msg: savedData})
 }
 
 const getBooksData= async function (req, res) {
@@ -80,19 +79,28 @@ const getBooksData= async function (req, res) {
     // let b = 14
     // b= b+ 10
     // console.log(b)
-
-    //let bookList= await BookModels.find().select({bookName: 1, authorName: 1, _id: 0})
+//bookList : gives all the books- their bookName and authorName only
+    let bookList= await BookModels.find().select({bookName: 1, authorName: 1, _id: 0})
      //res.send({msg: bookList})
+//getBooksInYear: takes year as input in post request and gives list of all books published that year
 
-    //  let input= req.body.year
-    //  let getBooksInYear=await BookModels.find({year:input})
-    //  res.send({msg: getBooksInYear})
+     let input= req.body.year
+     let getBooksInYear=await BookModels.find({year:input})
+    // res.send({msg: getBooksInYear})
+//getParticularBooks:- (this is a good one, make sincere effort to solve this) take any input and use it as a condition to fetch books that satisfy that condition 	
+//e.g if body had { name: “hi”} then you would fetch the books with this name
+//if body had { year: 2020} then you would fetch the books with this name
+//hence the condition will differ based on what you input in the request body
 
-//    let getParticularBooks= await BookModels(req.body)
-//      res.send({msg:  getParticularBooks})
+   let getParticularBooks= await BookModels.find(req.body)
+    // res.send({msg:getParticularBooks})
+//getXINRBooks- request to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR”
+  let getXINRBooks= await BookModels.find({$or:[{"prices.indianPrice":{$eq:"400inr"}},{"prices.indianPrice":{$eq:"800inr"}},{"prices.indianPrice":{$eq:"900inr"}}]})
+  //res.send({msg: getXINRBooks}) 
+//getRandomBooks - returns books that are available in stock or have more than 500 pages 
 
-    let getXINRBooks= await BookModels.find({$or:[{"prices.indianPrice":{$eq:"400inr"}},{"prices.indianPrice":{$eq:"800inr"}},{"prices.indianPrice":{$eq:"900inr"}}]})
-    res.send({msg: getXINRBooks}) 
+  let getrandom=await BookModels.find({$or:[{stockAvailable:true},{totalPages:{$gt:500}}]})
+  res.send({msg:getrandom})
 }
 
 
