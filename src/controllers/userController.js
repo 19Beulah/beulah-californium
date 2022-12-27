@@ -10,7 +10,7 @@ const createUser = async function (abcd, xyz) {
   //the second parameter is always the response
   let data = abcd.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
+  //console.log(abcd.newAtribute);
   xyz.send({ msg: savedData });
 };
 
@@ -23,7 +23,7 @@ const loginUser = async function (req, res) {
     return res.send({
       status: false,
       msg: "username or the password is not corerct",
-    });
+    }); 
 
   // Once the login is successful, create the jwt token with sign function
   // Sign function has 2 inputs:
@@ -34,12 +34,12 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "californium",
       organisation: "FunctionUp",
     },
-    "functionup-plutonium-very-very-secret-key"
+    "functionup-californium-Beulah"
   );
-  res.setHeader("x-auth-token", token);
+    res.setHeader("x-auth-token", token);
   res.send({ status: true, token: token });
 };
 
@@ -61,13 +61,12 @@ const getUserData = async function (req, res) {
   // Decoding requires the secret again. 
   // A token can only be decoded successfully if the same secret was used to create(sign) that token.
   // And because this token is only known to the server, it can be assumed that if a token is decoded at server then this token must have been issued by the same server in past.
-  let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
-  if (!decodedToken)
-    return res.send({ status: false, msg: "token is invalid" });
+  let decodedToken = jwt.verify(token, "functionup-californium-Beulah");
+  if (!decodedToken)  res.send({ status: false, msg: "token is invalid" });
 
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
-  if (!userDetails)
+  if(!userDetails) 
     return res.send({ status: false, msg: "No such user exists" });
 
   res.send({ status: true, data: userDetails });
