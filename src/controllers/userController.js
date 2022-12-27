@@ -1,5 +1,5 @@
 // const { type } = require("express/lib/response")
- const UserModel= require("../models/userModel")
+ const UserModel= require("../models/newuserModel")
 // const basicCode= async function(req, res) {
     
 //     let contentTypeHeader = req.headers.content-type
@@ -24,11 +24,12 @@ const createUser= async function (req, res) {
     let header=req.headers["isFreeAppUser"]
     if(!header) header=req.headers["isfreeappuser"]
      if(!header) return res.send({status:false,msg:"The request is missing a mandatory header"})
+     
      let data= req.body
      if(header == 'true'){
       data.isFreeAppUser=true   
      }else {
-      data.isFreeAppUser=false
+      data.isFreeAppUser=false 
      }
     let userData= await UserModel.create(data)
     res.send({msg: userData})

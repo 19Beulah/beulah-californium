@@ -19,8 +19,9 @@ router.get("/test-me", function (req, res) {
 router.post("/createProducts", productController.createProduct)
 
 //Write a POST api to create a user that takes user details from the request body.
+
 router.post("/createUser",UserController.createUser)
 
 //- Write a POST api for order purchase that takes a userId and a productId in request body.
-router.post("/createorder",orderController.createOrder)
+router.post("/createOrder",orderController.createOrder)
 module.exports = router;
