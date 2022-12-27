@@ -1,9 +1,5 @@
-const { type } = require("express/lib/response")
-const UserModel= require("../models/userModel")
-
-
-
-
+// const { type } = require("express/lib/response")
+ const UserModel= require("../models/userModel")
 // const basicCode= async function(req, res) {
     
 //     let contentTypeHeader = req.headers.content-type
@@ -24,36 +20,25 @@ const UserModel= require("../models/userModel")
 //     console.log("The request object looks like this: ", req)
 //     res.send({ msg: "This is coming from controller (handler)"})
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const createUser= async function (req, res) {
-    let data= req.body
-    let savedData= await UserModel.create(data)
-    res.send({msg: savedData})
+    let header=req.headers["isFreeAppUser"]
+    if(!header) header=req.headers["isfreeappuser"]
+     if(!header) return res.send({status:false,msg:"The request is missing a mandatory header"})
+     let data= req.body
+     if(header == 'true'){
+      data.isFreeAppUser=true   
+     }else {
+      data.isFreeAppUser=false
+     }
+    let userData= await UserModel.create(data)
+    res.send({msg: userData})
 }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
-    res.send({msg: allUsers})
-}
+// const getUsersData= async function (req, res) {
+//     let allUsers= await UserModel.find()
+//     res.send({msg: allUsers})
+// }
 
-module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
-module.exports.basicCode= basicCode
+ module.exports.createUser= createUser
+// module.exports.getUsersData= getUsersData
+// module.exports.basicCode= basicCode
