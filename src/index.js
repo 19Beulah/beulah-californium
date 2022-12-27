@@ -4,13 +4,13 @@ const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
 
 
 mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
     useNewUrlParser: true
-})
+},mongoose.set('strictQuery', false))
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
@@ -24,6 +24,6 @@ app.use(
 );
 
 
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Express app running on port ' + (process.env.PORT || 3000))
+app.listen( 3000, function () {
+    console.log('Express app running on port ' +  3000)
 });
