@@ -31,10 +31,8 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
-      organisation: "FUnctionUp",
     },
-    "functionup-thorium"
+    "beulah"
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });
@@ -54,7 +52,7 @@ const getUserData = async function (req, res) {
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
-  let decodedToken = jwt.verify(token, "functionup-thorium");
+  let decodedToken = jwt.verify(token, "beulah");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -91,7 +89,7 @@ const postMessage = async function (req, res) {
     // Return a different error message in both these cases
     let token = req.headers["x-auth-token"]
     if(!token) return res.send({status: false, msg: "token must be present in the request header"})
-    let decodedToken = jwt.verify(token, 'functionup-thorium')
+    let decodedToken = jwt.verify(token, 'beulah' )
 
     if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
     
@@ -114,9 +112,22 @@ const postMessage = async function (req, res) {
     //return the updated user document
     return res.send({status: true, data: updatedUser})
 }
+//Write a DELETE api that takes the userId in the path params and marks the isDeleted attribute for a user as true. Check that request must contain x-auth-token header. If absent, return a suitable error.
+const deleteUser= async function(req,res){
+
+  let token = req.headers["x-auth-token"]
+  if(!token) return res.send({status: false, msg: "token must be present in the request header"})
+  let decodedToken = jwt.verify(token, 'beulah' )
+
+  if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
+   let userId = req.params.userId;
+     
+}
+
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
-module.exports.postMessage = postMessage
+module.exports.postMessage = postMessage;
+module.exports.deleteUser = deleteUser 
