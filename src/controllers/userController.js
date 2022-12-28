@@ -28,12 +28,8 @@ const loginUser = async function (req, res) {
   // The decision about what data to put in token depends on the business requirement
   // Input 2 is the secret
   // The same secret will be used to decode tokens
-  let token = jwt.sign(
-    {
-      userId: user._id.toString(),
-    },
-    "beulah"
-  );
+  let token = jwt.sign({userId: user._id.toString(),},
+    "beulah");
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });
 };
@@ -112,7 +108,18 @@ const postMessage = async function (req, res) {
     //return the updated user document
     return res.send({status: true, data: updatedUser})
 }
+const deleteUser=async function(req,res){
 
+  let userId = req.params.userId;
+  let user = await userModel.findById(userId);
+  //Return an error if no user with the given id exists in the db
+  if (!user) {
+    return res.send("No such user exists");
+  }
+   let userData = req.body;
+  let deleteUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+  res.send({ status: true, data: deleteUser});
+}
 
 
 module.exports.createUser = createUser;
@@ -120,4 +127,4 @@ module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.postMessage = postMessage;
-//module.exports.deleteUser = deleteUser 
+module.exports.deleteUser = deleteUser 
