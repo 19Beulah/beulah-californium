@@ -29,7 +29,7 @@ const loginUser = async function (req, res) {
   // Input 2 is the secret
   // The same secret will be used to decode tokens
   let token = jwt.sign({userId: user._id.toString(),},
-    "beulah");
+    "functionup-californium-Beulah");
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });
 };
@@ -48,7 +48,7 @@ const getUserData = async function (req, res) {
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
-  let decodedToken = jwt.verify(token, "beulah");
+  let decodedToken = jwt.verify(token, "functionup-californium-Beulah");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -79,13 +79,13 @@ const updateUser = async function (req, res) {
 };
 
 const postMessage = async function (req, res) {
-    let isDelete = req.body.isDelete 
+    // let isDelete = req.body.isDelete 
     // Check if the token is present
     // Check if the token present is a valid token
     // Return a different error message in both these cases
     let token = req.headers["x-auth-token"]
     if(!token) return res.send({status: false, msg: "token must be present in the request header"})
-    let decodedToken = jwt.verify(token, 'beulah' )
+    let decodedToken = jwt.verify(token, 'functionup-californium-Beulah' )
 
     if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
     
