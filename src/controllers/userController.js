@@ -83,7 +83,7 @@ const updateUser = async function (req, res) {
 };
 
 const postMessage = async function (req, res) {
-    let message = req.body.message
+    let isDelete = req.body.isDelete 
     // Check if the token is present
     // Check if the token present is a valid token
     // Return a different error message in both these cases
@@ -113,14 +113,13 @@ const postMessage = async function (req, res) {
     return res.send({status: true, data: updatedUser})
 }
 //Write a DELETE api that takes the userId in the path params and marks the isDeleted attribute for a user as true. Check that request must contain x-auth-token header. If absent, return a suitable error.
-const deleteUser= async function(req,res){
-
-  let token = req.headers["x-auth-token"]
+  const deleteUser= async function(req,res){
+    let message = req.body.message
+  let token = req.headers["x-auth-token" ] 
   if(!token) return res.send({status: false, msg: "token must be present in the request header"})
-  let decodedToken = jwt.verify(token, 'beulah' )
-
+  let decodedToken = jwt.verify(token, 'beulah')
   if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
-   let userId = req.params.userId;
+    let userId = req.params.userId;
      
 }
 
