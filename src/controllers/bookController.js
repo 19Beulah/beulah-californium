@@ -28,7 +28,7 @@ const getBooksData= async function (req, res) {
 
     // let allBooks= await BookModel.find().sort({ sales: -1 }).skip(3 * (page-1)).limit(3).select({ bookName: 1, authorName: 1, _id: 0} )
 
-
+ 
     // let allBooks= await BookModel.find({ sales: { $eq:  137 }  }) 
     // let allBooks= await BookModel.find({ sales: { $ne:  137 }  }) 
     // let allBooks= await BookModel.find({ sales: { $gt:  50 }  }) 
@@ -79,6 +79,8 @@ const getBooksData= async function (req, res) {
     // let b = 14
     // b= b+ 10
     // console.log(b)
+
+
 //bookList : gives all the books- their bookName and authorName only
     let bookList= await BookModels.find().select({bookName: 1, authorName: 1, _id: 0})
      //res.send({msg: bookList})
