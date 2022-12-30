@@ -1,10 +1,10 @@
 
 # TRY CATCH SUMMARY:
-// if you get an error in try block, it will not execute the next lines of code inside try
+// if you get an error in try block, it will not execute the next lines of code inside try 
 // instead it will jump into catch block and execute the code there
 // code in catch block is normallly not executed
 //rather catch block is only executed if there is error in try block
-// the error( along with message++) gets sent to catch block incase there is an error
+// the error( along with message++) gets sent to catch block incase there is an error  
 
 
 
