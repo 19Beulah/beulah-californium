@@ -17,10 +17,10 @@ const loginUser = async function (req, res) {
 
   let user = await userModel.findOne({ emailId: userName, password: password });
   if (!user)
-    return res.send({
-      status: false,
+    return res.send(
+      { status: false,
       msg: "username or the password is not corerct",
-    });
+      });
 
   // Once the login is successful, create the jwt token with sign function
   // Sign function has 2 inputs:
@@ -47,7 +47,7 @@ const getUserData = async function (req, res) {
   // verify takes two inputs:
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
-  // Check the value of the decoded token yourself
+  // Check the value of the decoded token yourself  
   let decodedToken = jwt.verify(token, "functionup-californium-Beulah");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
@@ -128,3 +128,6 @@ module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.postMessage = postMessage;
 module.exports.deleteUser = deleteUser 
+
+  const a= jwt.sign({payload} , "secret") 
+  const b= jwt.verify(token,"secret") 
